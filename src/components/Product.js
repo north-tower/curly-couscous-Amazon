@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/solid'
-import Currency from "react-currency-formatter"
+
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
