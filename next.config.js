@@ -5,7 +5,7 @@ const nextConfig = {
 
 module.exports = {
   images :{
-    domains:["links.papareact.com","fakestoreapi.com"]
+    domains:["links.papareact.com","fakestoreapi.com","i.postimg.cc"]
 }, eslint: {
   ignoreDuringBuilds: true,
 },
