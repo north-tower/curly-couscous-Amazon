@@ -23,7 +23,7 @@ function Header() {
             onClick={() => router.push('/')}
             src="https://i.postimg.cc/zf0SwbLq/IMG-20230429-WA0000.jpg"
             width={150}
-            height={40}
+            height={30}
             style={{objectFit:"contain"}}
             className="cursor-pointer rounded-l-md"
             />
