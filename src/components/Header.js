@@ -25,7 +25,7 @@ function Header() {
             width={150}
             height={40}
             style={{objectFit:"contain"}}
-            className="cursor-pointer"
+            className="cursor-pointer rounded-l-md"
             />
           </div>
 
