@@ -18,15 +18,16 @@ function Header() {
   return (
     <header className="sticky top-0 z-50">
         <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
-          <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
-            <Image 
-            onClick={() => router.push('/')}
-            src="https://i.postimg.cc/zf0SwbLq/IMG-20230429-WA0000.jpg"
-            width={150}
-            height={30}
-            style={{objectFit:"contain"}}
-            className="cursor-pointer rounded-l-md"
-            />
+          <div className="mt-2 flex items-center  rounded-l-md flex-grow sm:flex-grow-0">
+          <Image 
+    onClick={() => router.push('/')}
+    src="https://i.postimg.cc/zf0SwbLq/IMG-20230429-WA0000.jpg"
+    width={90}
+    height={14}
+    style={{objectFit:"contain"}}
+    className="cursor-pointer rounded-full p-1"
+/>
+
           </div>
 
           <div className="hidden sm:flex items-center h-10 rounded-md 
@@ -65,15 +66,15 @@ function Header() {
             <MenuIcon className="h-6 mr-1" />
             All
           </p>
-          <p className="link ">Prime video</p>
-          <p className="link ">Business</p>
+          {/* <p className="link ">Prime video</p> */}
+          {/* <p className="link ">Business</p> */}
           <p className="link ">Todays Deals</p>
-          <p className="link hidden lg:inline">Electronics</p>
-          <p className="link hidden lg:inline">Food & Grocery</p>
-          <p className="link hidden lg:inline">Prime</p>
+          {/* <p className="link hidden lg:inline">Electronics</p> */}
+          {/* <p className="link hidden lg:inline">Food & Grocery</p> */}
+          {/* <p className="link hidden lg:inline">Prime</p>
           <p className="link hidden lg:inline">Buy Again</p>
-          <p className="link hidden lg:inline">Shopping Toolkit</p>
-          <p className="link hidden lg:inline">Health & Personal Care</p>        
+          <p className="link hidden lg:inline">Shopping Toolkit</p> */}
+          <p  onClick={() => router.push('/about')} className="link hidden lg:inline">Contact Us</p>        
         </div>
 
     </header>  
