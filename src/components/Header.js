@@ -74,7 +74,7 @@ function Header() {
           {/* <p className="link hidden lg:inline">Prime</p>
           <p className="link hidden lg:inline">Buy Again</p>
           <p className="link hidden lg:inline">Shopping Toolkit</p> */}
-          <p  onClick={() => router.push('/about')} className="link hidden lg:inline">Contact Us</p>        
+          <p  onClick={() => router.push('/about')} className="link inline">Contact Us</p>        
         </div>
 
     </header>  
