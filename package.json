@@ -16,6 +16,7 @@
     "axios": "^1.3.4",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "expo-location": "^15.1.1",
     "firebase": "^9.19.1",
     "firebase-admin": "^11.5.0",
     "geolib": "^3.3.3",
