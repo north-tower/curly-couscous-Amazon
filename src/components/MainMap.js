@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import MapGL, { GeolocateControl, Marker, Popup } from 'react-map-gl';
+import { useState, useEffect } from 'react';
+import MapGL, { Marker, Popup } from 'react-map-gl';
+
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-function MainMap() {
-  const [viewport, setViewport] = useState({
-    width: '100%',
-    height: '100%',
-    latitude: 0, // Initial latitude value
-    longitude: 0, // Initial longitude value
-    zoom: 13,
+function MainMap({ searchResults }) {
+  const [selectedLocation, setSelectedLocation] = useState({});
+  const [viewState, setViewState] = useState({
+    longitude: 0.1276,
+    latitude: 51.5072,
+    zoom: 11,
   });
-  
-  const [userLocation, setUserLocation] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
 
   useEffect(() => {
-    // Fetch user's location or use any other method to obtain it
+    // Get user's location using browser's geolocation API
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setUserLocation({ latitude, longitude });
-        setViewport((prevState) => ({
+        // Update the viewState with the user's location
+        setViewState((prevState) => ({
           ...prevState,
           latitude,
           longitude,
@@ -34,23 +31,22 @@ function MainMap() {
 
   return (
     <MapGL
-      {...viewport}
+      {...viewState}
+      onViewportChange={(newViewState) => setViewState(newViewState)}
+      width={800}
+      height={600}
       mapStyle="mapbox://styles/miki007/clgcabeu3001m01mmogi3u0wv"
-      mapboxApiAccessToken="pk.eyJ1IjoibWlraTAwNyIsImEiOiJjbGNxNHd2aGkwMmg1M29reWd2ZGJod2M1In0.f9-OPY7z8IFoBGwdM7zUZw"
-      onViewportChange={(viewport) => setViewport(viewport)}
+      mapboxApiAccessToken={process.env.mapbox_key}
     >
-      {userLocation && (
-        <Marker
-          latitude={userLocation.latitude}
-          longitude={userLocation.longitude}
-        >
-          <p role="img" className="cursor-pointer text-2xl animate-bounce" aria-label="push-pin">
-            📌
-          </p>
-        </Marker>
-      )}
-
-      {/* Additional markers and other components */}
+      {/* Display user's location as a marker */}
+      <Marker
+        longitude={viewState.longitude}
+        latitude={viewState.latitude}
+        offsetLeft={-20}
+        offsetTop={-10}
+      >
+        <div>You are here</div>
+      </Marker>
     </MapGL>
   );
 }
