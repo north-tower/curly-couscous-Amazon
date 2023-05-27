@@ -11,24 +11,7 @@ function MainMap({ searchResults }) {
     zoom: 11,
   });
 
-  useEffect(() => {
-    // Get user's location using browser's geolocation API
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        // Update the viewState with the user's location
-        setViewState((prevState) => ({
-          ...prevState,
-          latitude,
-          longitude,
-        }));
-      },
-      (error) => {
-        console.error('Error getting user location:', error);
-      }
-    );
-  }, []);
-
+  
   return (
     <MapGL
       {...viewState}
