@@ -1,79 +1,47 @@
-import React, { useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
+import Header from '@/components/Header'
+import React from 'react'
+import { useRouter } from 'next/router'
+import MainMap from '@/components/MainMap'
 
-const GeolocationExample = () => {
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [pinLocation, setPinLocation] = useState(null);
-
-  useEffect(() => {
-    getLocation();
-  }, []);
-
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      document.getElementById("demo").innerHTML = "Geolocation is not supported by this browser.";
-    }
-  };
-
-  const showPosition = (position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    setCurrentLocation({ lat: latitude, lng: longitude });
-    document.getElementById("demo").innerHTML = `Latitude: ${latitude}<br>Longitude: ${longitude}`;
-  };
-
-  const handlePinLocation = (e) => {
-    const { lng, lat } = e.lngLat;
-    setPinLocation({ lat, lng });
-    setCurrentLocation({ lat, lng });
-  };
-
+function about() {
   return (
     <div>
-      <h1>Geolocation Example</h1>
-      <p id="demo">Click the button to get your location.</p>
-      <button onClick={getLocation}>Get Location</button>
-      <div style={{ height: "400px" }}>
-        <MapboxMap currentLocation={currentLocation} pinLocation={pinLocation} onPinLocation={handlePinLocation} />
+      <Header />
+
+      <main className='flex flex-col h-screen'>
+        <section className="flex-1">
+          <MainMap className="w-full h-1/2" />
+        </section>
+        <section className="flex-1 h-1/2 flex flex-wrap ">
+          <div className="max-w-md mx-auto text-center sm:w-1/2 px-4">
+            <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
+            <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum libero nec justo blandit, id convallis massa volutpat. Ut sit amet nibh at felis eleifend ultrices.</p>
+            <p className="mb-4">Duis non lobortis quam. Ut nec ante eu tellus efficitur efficitur. Nullam eget libero sit amet nisi lobortis feugiat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum libero nec justo blandit, id convallis massa volutpat. Ut sit amet nibh at felis eleifend ultrices. Duis non lobortis quam. Ut nec ante eu tellus efficitur efficitur.</p>
+          </div>
+          <div className="max-w-md mx-auto text-center sm:w-1/2 px-4">
+      <h1 className="text-3xl font-bold mb-4">Message Us</h1>
+
+          <form>
+      <div className="mb-4 ">
+        <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name:</label>
+        <input type="text" id="name" name="name" className="w-[350px] border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
       </div>
-      {pinLocation && (
-        <div>
-          <h3>Pinned Location:</h3>
-          <p>Latitude: {pinLocation.lat}</p>
-          <p>Longitude: {pinLocation.lng}</p>
-        </div>
-      )}
+      <div className="mb-4">
+        <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email:</label>
+        <input type="email" id="email" name="email" className="w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message:</label>
+        <textarea id="message" name="message" className="w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+      </div>
+      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+    </form>
+          </div>
+        </section>
+      </main>
     </div>
-  );
-};
+  )
+}
 
-const MapboxMap = ({ currentLocation, pinLocation, onPinLocation }) => {
-  useEffect(() => {
-    mapboxgl.accessToken = "pk.eyJ1IjoibWlraTAwNyIsImEiOiJjbGNxNHd2aGkwMmg1M29reWd2ZGJod2M1In0.f9-OPY7z8IFoBGwdM7zUZw"; // Replace with your Mapbox access token
-
-    const map = new mapboxgl.Map({
-      container: "map-container",
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: pinLocation ? [pinLocation.lng, pinLocation.lat] : currentLocation ? [currentLocation.lng, currentLocation.lat] : [0, 0],
-      zoom: 12,
-    });
-
-    if (currentLocation) {
-      new mapboxgl.Marker({ color: "blue" }).setLngLat([currentLocation.lng, currentLocation.lat]).addTo(map);
-    }
-
-    if (pinLocation) {
-      new mapboxgl.Marker({ color: "red" }).setLngLat([pinLocation.lng, pinLocation.lat]).addTo(map);
-    }
-
-    map.on("click", onPinLocation);
-
-    return () => map.remove();
-  }, [currentLocation, pinLocation, onPinLocation]);
-
-  return <div id="map-container" style={{ height: "100%" }} />;
-};
-
-export default GeolocationExample;
+export default about
