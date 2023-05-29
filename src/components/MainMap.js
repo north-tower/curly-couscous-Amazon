@@ -1,54 +1,27 @@
-import { useState, useEffect } from 'react';
-import MapGL, { Marker, Popup } from 'react-map-gl';
+import React, { useEffect, useRef } from "react";
+import mapboxgl from "mapbox-gl";
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-
-function MainMap({ searchResults }) {
-  const [selectedLocation, setSelectedLocation] = useState({});
-  const [viewState, setViewState] = useState({
-    longitude: 0.1276,
-    latitude: 51.5072,
-    zoom: 11,
-  });
+const Map = ({ lng, lat }) => {
+  const mapContainerRef = useRef(null);
 
   useEffect(() => {
-    // Get user's location using browser's geolocation API
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        // Update the viewState with the user's location
-        setViewState((prevState) => ({
-          ...prevState,
-          latitude,
-          longitude,
-        }));
-      },
-      (error) => {
-        console.error('Error getting user location:', error);
-      }
-    );
-  }, []);
+    mapboxgl.accessToken = "pk.eyJ1IjoibWlraTAwNyIsImEiOiJjbGNxNHd2aGkwMmg1M29reWd2ZGJod2M1In0.f9-OPY7z8IFoBGwdM7zUZw"; // Replace with your Mapbox access token
 
-  return (
-    <MapGL
-      {...viewState}
-      onViewportChange={(newViewState) => setViewState(newViewState)}
-      width={800}
-      height={600}
-      mapStyle="mapbox://styles/miki007/clgcabeu3001m01mmogi3u0wv"
-      mapboxApiAccessToken={process.env.mapbox_key}
-    >
-      {/* Display user's location as a marker */}
-      <Marker
-        longitude={viewState.longitude}
-        latitude={viewState.latitude}
-        offsetLeft={-20}
-        offsetTop={-10}
-      >
-        <div>You are here</div>
-      </Marker>
-    </MapGL>
-  );
-}
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: 12,
+    });
 
-export default MainMap;
+    new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+
+    return () => {
+      map.remove();
+    };
+  }, [lng, lat]);
+
+  return <div ref={mapContainerRef} style={{ height: "400px" }} />;
+};
+
+export default Map;
