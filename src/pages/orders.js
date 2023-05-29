@@ -7,7 +7,7 @@ import { getSession } from 'next-auth/react';
 import Order from '@/components/Order';
 
 function Orders({ orders, session }) {
-  console.log(orders);
+
   return (
     <div>
       <Header />
